@@ -10,11 +10,16 @@ REMOVE_LIST=(
     /home/igkim/utils/tmp2,5
 )
 
+LOG_FILE="remove.log"
+
+echo "$(date +%Y-%m-%d_%T) [INFO] Log remover started" >> $LOG_FILE
 
 for i in "${REMOVE_LIST[@]}"
 do
     DIR=$(echo $i | cut -d ',' -f1)
     DAYS=$(echo $i | cut -d ',' -f2)
 
-    /usr/bin/find $DIR -type f -mtime +$DAYS -exec rm {} +
+    echo "$(date +%Y-%m-%d_%T) [INFO] Remove $DIR" >> $LOG_FILE
+    /usr/bin/find $DIR -type f -mtime -$DAYS -exec rm {} + >> $LOG_FILE 2>&1
+
 done
