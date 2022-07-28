@@ -19,6 +19,6 @@ for i in "${REMOVE_LIST[@]}"; do
   DAYS=$(echo $i | cut -d ',' -f2)
 
   echo "$(date +%Y-%m-%d_%T) [INFO] Remove $DIR" >>$LOG_FILE
-  /usr/bin/find $DIR -type f -mtime -$DAYS -exec rm {} + >>$LOG_FILE 2>&1
+  /usr/bin/find $DIR -type f -mtime +$DAYS -exec rm {} + >>$LOG_FILE 2>&1
 
 done
